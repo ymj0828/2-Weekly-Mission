@@ -27,16 +27,16 @@ main {
 .logo img {
   height: 3.8rem;
 }
-.logo-wrap p {
+.logo-wrap > p {
   font-size: 1.6rem;
   line-height: 2.4rem;
 }
-.logo-wrap p a {
+.logo-wrap > p > a {
   border-bottom: 1px solid var(--main-color);
   font-weight: 600;
   color: var(--main-color);
 }
-.sign-wrap form {
+.sign-wrap > form {
   display: flex;
   gap: 2.4rem;
   flex-direction: column;
@@ -47,7 +47,7 @@ main {
   gap: 1.2rem;
   flex-direction: column;
 }
-.input-wrap label {
+.input-wrap > label {
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -67,7 +67,7 @@ main {
 .input-hidden-wrap {
   position: relative;
 }
-.input-hidden-wrap img {
+.input-hidden-wrap > img {
   position: absolute;
   top: 50%;
   right: 1.5rem;
@@ -99,7 +99,7 @@ main {
   gap: 1.6rem;
   align-items: center;
 }
-.sns-logo-wrap a {
+.sns-logo-wrap > a {
   display: flex;
   align-items: center;
 }
