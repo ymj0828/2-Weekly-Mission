@@ -42,16 +42,16 @@ main {
   flex-direction: column;
   width: 100%;
 }
-.input-wrap {
+.label-input-wrap {
   display: flex;
   gap: 1.2rem;
   flex-direction: column;
 }
-.input-wrap > label {
+.label-input-wrap > label {
   font-size: 1.4rem;
   font-weight: 400;
 }
-.input-wrap input {
+.label-input-wrap input {
   width: 100%;
   padding: 1.8rem 4rem 1.8rem 1.5rem;
   border: 1px solid var(--gray-light-color);
@@ -61,13 +61,13 @@ main {
   line-height: 2.4rem;
   color: var(--gray-darker-color);
 }
-.input-wrap input:focus {
+.label-input-wrap input:focus {
   border: 1px solid var(--main-color);
 }
-.input-hidden-wrap {
+.input-wrap {
   position: relative;
 }
-.input-hidden-wrap > img {
+.input-wrap > img {
   position: absolute;
   top: 50%;
   right: 1.5rem;
