@@ -1,16 +1,13 @@
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
 const passwordCheckInput = document.querySelector("#password-check");
-const inputAlert = document.querySelectorAll(".input-alert");
 const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/);
-const submitButton = document.querySelector(".submit-button");
 const form = document.querySelector("form");
 
 const inputErrMessage = {
   emailNull: "이메일을 입력해주세요.",
   emailInvalid: "올바른 이메일 주소가 아닙니다.",
-  emailNotRegistered: "이메일을 확인해주세요.",
   emailExisting: "이미 사용 중인 이메일입니다.",
   passwordInvalid: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
   passwordNull: "비밀번호를 입력해주세요.",
