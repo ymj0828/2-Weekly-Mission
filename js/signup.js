@@ -1,9 +1,11 @@
+import { toggleVisiblePassword } from "./sign_module.js";
+
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
 const passwordCheckInput = document.querySelector("#password-check");
+const form = document.querySelector("form");
 const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/);
-const form = document.querySelector("form");
 
 const inputErrMessage = {
   emailNull: "이메일을 입력해주세요.",
@@ -76,27 +78,8 @@ form.addEventListener("submit", (e) => {
     Boolean(Number(passwordInput.dataset.boolean)) &&
     Boolean(Number(passwordCheckInput.dataset.boolean))
   ) {
-    window.location.href = "./folder";
+    window.location.href = "./folder.html";
   }
 });
 
-const visiblePasswordIcon = document.querySelectorAll(".input-wrap > img");
-
-visiblePasswordIcon.forEach((iconEle) => {
-  iconEle.addEventListener("click", () => {
-    const currentType = iconEle.previousElementSibling.getAttribute("type");
-    const inputType = currentType === "password" ? "text" : "password";
-    const imgSrc =
-      currentType === "password"
-        ? "./img/icon/eye_on_icon.svg"
-        : "./img/icon/eye_off_icon.svg";
-    const imgAlt =
-      currentType === "password"
-        ? "현재 비밀번호가 보이는 상태 아이콘"
-        : "현재 비밀번호가 보이지 않는 상태 아이콘";
-
-    iconEle.previousElementSibling.setAttribute("type", inputType);
-    iconEle.setAttribute("src", imgSrc);
-    iconEle.setAttribute("alt", imgAlt);
-  });
-});
+toggleVisiblePassword();
