@@ -46,6 +46,7 @@ main {
   display: flex;
   gap: 1.2rem;
   flex-direction: column;
+  position: relative;
 }
 .label-input-wrap > label {
   font-size: 1.4rem;
@@ -64,6 +65,9 @@ main {
 .label-input-wrap input:focus {
   border: 1px solid var(--main-color);
 }
+.label-input-wrap input.alert {
+  border: 1px solid var(--alert-color);
+}
 .input-wrap {
   position: relative;
 }
@@ -73,6 +77,13 @@ main {
   right: 1.5rem;
   cursor: pointer;
   transform: translateY(-50%);
+}
+.input-alert {
+  position: absolute;
+  bottom: -0.6rem;
+  font-size: 1.4rem;
+  color: var(--alert-color);
+  transform: translateY(100%);
 }
 .submit-button {
   padding: 1.6rem 2rem;

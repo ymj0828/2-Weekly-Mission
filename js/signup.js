@@ -18,11 +18,13 @@ const inputErrMessage = {
 };
 
 function focusOutAlert(ele, message) {
+  ele.classList.add("alert");
   ele.parentElement.nextElementSibling.textContent = message;
   ele.dataset.boolean = 0;
 }
 
 function emailInputFocusOut(ele) {
+  ele.classList.remove("alert");
   emailInput.parentElement.nextElementSibling.textContent = "";
   emailInput.dataset.boolean = 1;
   if (ele.value === "") {
@@ -35,6 +37,7 @@ function emailInputFocusOut(ele) {
 }
 
 function passwordInputFocusOut(ele) {
+  ele.classList.remove("alert");
   passwordInput.parentElement.nextElementSibling.textContent = "";
   passwordInput.dataset.boolean = 1;
   if (ele.value === "") {
@@ -45,6 +48,7 @@ function passwordInputFocusOut(ele) {
 }
 
 function passwordCheckInputFocusOut(ele) {
+  ele.classList.remove("alert");
   passwordCheckInput.parentElement.nextElementSibling.textContent = "";
   passwordCheckInput.dataset.boolean = 1;
   if (ele.value !== passwordInput.value) {
