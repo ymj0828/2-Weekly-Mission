@@ -1,4 +1,6 @@
-import { toggleVisiblePassword } from "./sign_module.js";
+import { toggleVisiblePassword, isAccessToken } from "./sign_module.js";
+
+isAccessToken();
 
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
@@ -50,9 +52,29 @@ form.addEventListener("submit", (e) => {
 
   if (
     emailInput.value === "test@codeit.com" &&
-    passwordInput.value === "codeit101"
+    passwordInput.value === "sprint101"
   ) {
-    window.location.href = "./folder.html";
+    async function checkUserRegistered() {
+      try {
+        const response = await fetch(
+          "https://bootcamp-api.codeit.kr/api/sign-in",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: emailInput.value,
+              password: passwordInput.value,
+            }),
+          }
+        );
+        const { data } = await response.json();
+        localStorage.setItem("accessToken", data.accessToken);
+        window.location.href = "./folder.html";
+      } catch {}
+    }
+    checkUserRegistered();
   } else {
     focusOutAlert(emailInput, inputErrMessage.emailNotRegistered);
     focusOutAlert(passwordInput, inputErrMessage.passwordNotRegistered);

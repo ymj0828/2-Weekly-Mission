@@ -20,3 +20,11 @@ export function toggleVisiblePassword() {
     });
   });
 }
+
+const accessToken = localStorage.getItem("accessToken");
+
+export function isAccessToken() {
+  if (accessToken) {
+    window.location.href = "./folder.html";
+  }
+}
