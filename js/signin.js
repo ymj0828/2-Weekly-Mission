@@ -1,84 +1,99 @@
-import { toggleVisiblePassword, isAccessToken } from "./sign_module.js";
+import {
+  Input_Err_Message,
+  setInputAlert,
+  removeInputAlert,
+  isEmailValid,
+  toggleVisiblePassword,
+  redirectIfAccessTokenExists,
+} from "./sign_module.js";
 
-isAccessToken();
+redirectIfAccessTokenExists();
 
 const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
-const form = document.querySelector("form");
-
-const inputErrMessage = {
-  emailNull: "이메일을 입력해주세요.",
-  emailNotRegistered: "이메일을 확인해주세요.",
-  passwordNull: "비밀번호를 입력해주세요.",
-  passwordNotRegistered: "비밀번호를 확인해주세요.",
-};
-
-function focusOutAlert(ele, message) {
-  ele.classList.add("alert");
-  ele.parentElement.nextElementSibling.textContent = message;
-  ele.dataset.boolean = 0;
-}
-
-function emailInputFocusOut(ele) {
-  ele.classList.remove("alert");
-  emailInput.parentElement.nextElementSibling.textContent = "";
-  emailInput.dataset.boolean = 1;
-  if (ele.value === "") {
-    focusOutAlert(ele, inputErrMessage.emailNull);
-  }
-}
-
-function passwordInputFocusOut(ele) {
-  ele.classList.remove("alert");
-  passwordInput.parentElement.nextElementSibling.textContent = "";
-  passwordInput.dataset.boolean = 1;
-  if (ele.value === "") {
-    focusOutAlert(ele, inputErrMessage.passwordNull);
-  }
-}
+const emailAlert = document.querySelector("#email-alert");
 
 emailInput.addEventListener("focusout", (e) => {
-  emailInputFocusOut(e.target);
+  emailInputFocusOut(e.target.value);
 });
+
+function emailInputFocusOut(inputValue) {
+  if (inputValue === "") {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailNull
+    );
+    return;
+  }
+  if (!isEmailValid(inputValue)) {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailInvalid
+    );
+    return;
+  }
+  removeInputAlert({ input: emailInput, errorAlert: emailAlert });
+}
+
+const passwordInput = document.querySelector("#password");
+const passwordAlert = document.querySelector("#password-alert");
 
 passwordInput.addEventListener("focusout", (e) => {
-  passwordInputFocusOut(e.target);
+  passwordInputFocusOut(e.target.value);
 });
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  emailInputFocusOut(emailInput);
-  passwordInputFocusOut(passwordInput);
-
-  if (
-    emailInput.value === "test@codeit.com" &&
-    passwordInput.value === "sprint101"
-  ) {
-    async function checkUserRegistered() {
-      try {
-        const response = await fetch(
-          "https://bootcamp-api.codeit.kr/api/sign-in",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: emailInput.value,
-              password: passwordInput.value,
-            }),
-          }
-        );
-        const { data } = await response.json();
-        localStorage.setItem("accessToken", data.accessToken);
-        window.location.href = "./folder.html";
-      } catch {}
-    }
-    checkUserRegistered();
-  } else {
-    focusOutAlert(emailInput, inputErrMessage.emailNotRegistered);
-    focusOutAlert(passwordInput, inputErrMessage.passwordNotRegistered);
+function passwordInputFocusOut(inputValue) {
+  if (inputValue === "") {
+    setInputAlert(
+      { input: passwordInput, errorAlert: passwordAlert },
+      Input_Err_Message.passwordNull
+    );
+    return;
   }
-});
+  removeInputAlert({ input: passwordInput, errorAlert: passwordAlert });
+}
 
-toggleVisiblePassword();
+const visiblePasswordIcon = document.querySelector("#password-toggle");
+
+visiblePasswordIcon.addEventListener("click", () =>
+  toggleVisiblePassword(passwordInput, visiblePasswordIcon)
+);
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", submitForm);
+
+async function submitForm(e) {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value,
+      }),
+    });
+
+    if (!response.ok) {
+      throw Error();
+    }
+
+    const { data } = await response.json();
+    const accessToken = data.accessToken;
+
+    localStorage.setItem("accessToken", accessToken);
+    location.href = "./folder.html";
+  } catch {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailNotRegistered
+    );
+    setInputAlert(
+      { input: passwordInput, errorAlert: passwordAlert },
+      Input_Err_Message.passwordNotRegistered
+    );
+  }
+}

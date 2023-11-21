@@ -1,124 +1,158 @@
-import { toggleVisiblePassword, isAccessToken } from "./sign_module.js";
+import {
+  TEST_USER,
+  Input_Err_Message,
+  setInputAlert,
+  removeInputAlert,
+  isEmailValid,
+  isPasswordValid,
+  toggleVisiblePassword,
+  redirectIfAccessTokenExists,
+} from "./sign_module.js";
 
-isAccessToken();
+redirectIfAccessTokenExists();
 
 const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
-const passwordCheckInput = document.querySelector("#password-check");
-const form = document.querySelector("form");
-const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-const passwordRegex = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/);
-
-const inputErrMessage = {
-  emailNull: "이메일을 입력해주세요.",
-  emailInvalid: "올바른 이메일 주소가 아닙니다.",
-  emailExisting: "이미 사용 중인 이메일입니다.",
-  passwordInvalid: "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.",
-  passwordNull: "비밀번호를 입력해주세요.",
-  passwordNotMatch: "비밀번호가 일치하지 않아요.",
-};
-
-function focusOutAlert(ele, message) {
-  ele.classList.add("alert");
-  ele.parentElement.nextElementSibling.textContent = message;
-  ele.dataset.boolean = 0;
-}
-
-function emailInputFocusOut(ele) {
-  ele.classList.remove("alert");
-  emailInput.parentElement.nextElementSibling.textContent = "";
-  emailInput.dataset.boolean = 1;
-  if (ele.value === "") {
-    focusOutAlert(ele, inputErrMessage.emailNull);
-  } else if (!emailRegex.test(ele.value)) {
-    focusOutAlert(ele, inputErrMessage.emailInvalid);
-  } else if (ele.value === "test@codeit.com") {
-    focusOutAlert(ele, inputErrMessage.emailExisting);
-    async function checkEmailRegistered() {
-      try {
-        const response = await fetch(
-          "https://bootcamp-api.codeit.kr/api/check-email",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: ele.value }),
-          }
-        );
-        const data = await response.json();
-        console.log(data.error.message);
-      } catch {}
-    }
-    checkEmailRegistered();
-  }
-}
-
-function passwordInputFocusOut(ele) {
-  ele.classList.remove("alert");
-  passwordInput.parentElement.nextElementSibling.textContent = "";
-  passwordInput.dataset.boolean = 1;
-  if (ele.value === "") {
-    focusOutAlert(ele, inputErrMessage.passwordNull);
-  } else if (!passwordRegex.test(ele.value)) {
-    focusOutAlert(ele, inputErrMessage.passwordInvalid);
-  }
-}
-
-function passwordCheckInputFocusOut(ele) {
-  ele.classList.remove("alert");
-  passwordCheckInput.parentElement.nextElementSibling.textContent = "";
-  passwordCheckInput.dataset.boolean = 1;
-  if (ele.value !== passwordInput.value) {
-    focusOutAlert(ele, inputErrMessage.passwordNotMatch);
-  }
-}
+const emailAlert = document.querySelector("#email-alert");
 
 emailInput.addEventListener("focusout", (e) => {
-  emailInputFocusOut(e.target);
+  emailInputFocusOut(e.target.value);
 });
+
+function emailInputFocusOut(inputValue) {
+  if (inputValue === "") {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailNull
+    );
+    return false;
+  }
+  if (!isEmailValid(inputValue)) {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailInvalid
+    );
+    return false;
+  }
+  if (inputValue === TEST_USER.email) {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailExisting
+    );
+    return false;
+  }
+  removeInputAlert({ input: emailInput, errorAlert: emailAlert });
+  return true;
+}
+
+const passwordInput = document.querySelector("#password");
+const passwordAlert = document.querySelector("#password-alert");
 
 passwordInput.addEventListener("focusout", (e) => {
-  passwordInputFocusOut(e.target);
+  passwordInputFocusOut(e.target.value);
 });
+
+function passwordInputFocusOut(inputValue) {
+  if (inputValue === "" || !isPasswordValid(inputValue)) {
+    setInputAlert(
+      { input: passwordInput, errorAlert: passwordAlert },
+      Input_Err_Message.passwordInvalid
+    );
+    return false;
+  }
+  removeInputAlert({ input: passwordInput, errorAlert: passwordAlert });
+  return true;
+}
+
+const passwordCheckInput = document.querySelector("#password-check");
+const passwordCheckAlert = document.querySelector("#password-check-alert");
 
 passwordCheckInput.addEventListener("focusout", (e) => {
-  passwordCheckInputFocusOut(e.target);
+  passwordCheckInputFocusOut(e.target.value);
 });
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  emailInputFocusOut(emailInput);
-  passwordInputFocusOut(passwordInput);
-  passwordCheckInputFocusOut(passwordCheckInput);
-
-  if (
-    Boolean(Number(emailInput.dataset.boolean)) &&
-    Boolean(Number(passwordInput.dataset.boolean)) &&
-    Boolean(Number(passwordCheckInput.dataset.boolean))
-  ) {
-    async function checkInputValidated() {
-      try {
-        const response = await fetch(
-          "https://bootcamp-api.codeit.kr/api/sign-up",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: emailInput.value,
-              password: passwordInput.value,
-            }),
-          }
-        );
-        const { data } = await response.json();
-        localStorage.setItem("accessToken", data.accessToken);
-        window.location.href = "./folder.html";
-      } catch {}
-    }
-    checkInputValidated();
+function passwordCheckInputFocusOut(inputValue) {
+  if (inputValue === "" || !isPasswordValid(inputValue)) {
+    setInputAlert(
+      { input: passwordCheckInput, errorAlert: passwordCheckAlert },
+      Input_Err_Message.passwordInvalid
+    );
+    return false;
   }
-});
+  if (passwordInput.value !== inputValue) {
+    setInputError(
+      { input: passwordCheckInput, errorAlert: passwordCheckAlert },
+      Input_Err_Message.passwordNotMatch
+    );
+    return false;
+  }
+  removeInputAlert({
+    input: passwordCheckInput,
+    errorAlert: passwordCheckAlert,
+  });
+  return true;
+}
 
-toggleVisiblePassword();
+const visiblePasswordIcon = document.querySelector("#password-toggle");
+
+visiblePasswordIcon.addEventListener("click", () =>
+  toggleVisiblePassword(passwordInput, visiblePasswordIcon)
+);
+
+const visiblePasswordCheckIcon = document.querySelector(
+  "#password-check-toggle"
+);
+
+visiblePasswordCheckIcon.addEventListener("click", () =>
+  toggleVisiblePassword(passwordCheckInput, visiblePasswordCheckIcon)
+);
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", submitForm);
+
+async function submitForm(e) {
+  e.preventDefault();
+
+  try {
+    const isEmailInputValid = emailInputFocusOut(emailInput.value);
+    const isPasswordInputValid = passwordInputFocusOut(passwordInput.value);
+    const isConfirmPasswordInputValid = passwordCheckInputFocusOut(
+      passwordCheckInput.value
+    );
+
+    if (
+      isEmailInputValid &&
+      isPasswordInputValid &&
+      isConfirmPasswordInputValid
+    ) {
+      const response = await fetch(
+        "https://bootcamp-api.codeit.kr/api/sign-up",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: emailInput.value,
+            password: passwordInput.value,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw Error();
+      }
+
+      const { data } = await response.json();
+      const accessToken = data.accessToken;
+
+      localStorage.setItem("accessToken", accessToken);
+      location.href = "./folder.html";
+    }
+  } catch {
+    setInputAlert(
+      { input: emailInput, errorAlert: emailAlert },
+      Input_Err_Message.emailExisting
+    );
+  }
+}
