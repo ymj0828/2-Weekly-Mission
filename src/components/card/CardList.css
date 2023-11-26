@@ -1,0 +1,19 @@
+ul {
+  display: grid;
+  gap: 2.5rem 2rem;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+@media (max-width: 1124px) {
+  ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
