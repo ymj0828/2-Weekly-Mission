@@ -1,0 +1,17 @@
+.link-list-wrap {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 192rem;
+  padding: 4rem 20rem 10rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 1124px) {
+  .link-list-wrap {
+    max-width: 80rem;
+    padding: 4rem 3.2rem 10rem;
+  }
+}
