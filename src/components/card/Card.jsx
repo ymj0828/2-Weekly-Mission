@@ -1,5 +1,5 @@
 import "./Card.css";
-import noImage from "../../assets/folder_preview_no_image.svg";
+import noImage from "../../assets/folder-preview-no-image.svg";
 
 const Card = ({ data }) => {
   const { createdAt, description, imageSource, url } = data;
