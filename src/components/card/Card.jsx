@@ -28,18 +28,16 @@ const Card = ({ data }) => {
   }
 
   return (
-    <li>
-      <a href={url} target="_blank" rel="noreferrer">
-        <div className="image-wrap">
-          <img src={imageSource || noImage} alt="링크 미리보기 이미지" />
-        </div>
-        <div className="link-information-wrap">
-          <span className="link-created-ago">{timeAgo}</span>
-          <span className="link-description">{description}</span>
-          <span className="link-created-time">{createdAt}</span>
-        </div>
-      </a>
-    </li>
+    <a href={url} target="_blank" rel="noreferrer">
+      <div className="image-wrap">
+        <img src={imageSource || noImage} alt="링크 미리보기 이미지" />
+      </div>
+      <div className="link-information-wrap">
+        <span className="link-created-ago">{timeAgo}</span>
+        <span className="link-description">{description}</span>
+        <span className="link-created-time">{createdAt}</span>
+      </div>
+    </a>
   );
 };
 

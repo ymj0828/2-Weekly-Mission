@@ -18,7 +18,9 @@ const CardList = () => {
   return (
     <ul>
       {userData.map((userData) => (
-        <Card key={userData.id} data={userData} />
+        <li>
+          <Card key={userData.id} data={userData} />
+        </li>
       ))}
     </ul>
   );

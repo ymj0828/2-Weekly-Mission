@@ -6,8 +6,7 @@ const getUser = async () => {
     if (!response.ok) {
       throw new Error("유저 데이터를 불러오는데 실패했습니다.");
     }
-    const body = await response.json();
-    return body;
+    return response.json();
   } catch (err) {
     console.error(err);
   }
