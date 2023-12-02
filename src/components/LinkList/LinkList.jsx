@@ -1,5 +1,5 @@
-import CardList from "../card/CardList";
-import SearchBar from "../search_bar/SearchBar";
+import CardList from "../Card/CardList";
+import SearchBar from "../SearchBar/SearchBar";
 import "./LinkList.css";
 
 const LinkList = () => {
