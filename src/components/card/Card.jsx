@@ -5,6 +5,11 @@ const Card = ({ data }) => {
   const { createdAt, description, imageSource, url } = data;
 
   const createdDate = new Date(createdAt);
+
+  const formatDate = `${createdDate.getFullYear()}. ${
+    createdDate.getMonth() + 1
+  }. ${createdDate.getDate()}`;
+
   const currentDate = new Date();
 
   const timeDifference = currentDate - createdDate;
@@ -35,7 +40,7 @@ const Card = ({ data }) => {
       <div className="link-information-wrap">
         <span className="link-created-ago">{timeAgo}</span>
         <span className="link-description">{description}</span>
-        <span className="link-created-time">{createdAt}</span>
+        <span className="link-created-time">{formatDate}</span>
       </div>
     </a>
   );
