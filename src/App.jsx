@@ -1,9 +1,11 @@
-import SharedPage from "./pages/SharedPage";
+// import SharedPage from "./pages/SharedPage";
+import FolderPage from "./pages/FolderPage";
 
 function App() {
   return (
-    <SharedPage/>
-  )
+    // <SharedPage/>
+    <FolderPage />
+  );
 }
 
 export default App;
