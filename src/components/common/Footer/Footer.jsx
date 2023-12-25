@@ -1,19 +1,22 @@
-import "./Footer.css";
-import facebookIcon from "../../assets/sns-facebook.svg";
-import twitterIcon from "../../assets/sns-twitter.svg";
-import youtubeIcon from "../../assets/sns-youtube.svg";
-import instagramIcon from "../../assets/sns-instagram.svg";
+import styles from "./Footer.module.css";
+import classNames from "classnames/bind";
+import facebookIcon from "../../../assets/sns-facebook.svg";
+import twitterIcon from "../../../assets/sns-twitter.svg";
+import youtubeIcon from "../../../assets/sns-youtube.svg";
+import instagramIcon from "../../../assets/sns-instagram.svg";
+
+const cx = classNames.bind(styles);
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="footer-wrap">
-        <div className="corplogo-wrap">©codeit - 2023</div>
-        <div className="policy-faq-wrap">
+    <footer className={cx("container")}>
+      <div className={cx("footer-wrap")}>
+        <div className={cx("corplogo-wrap")}>©codeit - 2023</div>
+        <div className={cx("policy-faq-wrap")}>
           <a href="privacy.html">Privacy Policy</a>
           <a href="faq.html">FAQ</a>
         </div>
-        <div className="sns-wrap">
+        <div className={cx("sns-wrap")}>
           <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
             <img src={facebookIcon} alt="페이스북으로 이동" />
           </a>
