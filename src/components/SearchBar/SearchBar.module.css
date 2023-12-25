@@ -1,0 +1,27 @@
+.form {
+  display: flex;
+  width: 100%;
+  padding: 1.5rem 1.6rem;
+  border-radius: 1rem;
+  background-color: var(--gray-light-color);
+}
+.input {
+  display: block;
+  align-items: stretch;
+  flex: 1;
+  padding-left: 1rem;
+  border: none;
+  outline: none;
+  background-color: var(--gray-light-color);
+  font-size: 1.6rem;
+}
+
+@media (max-width: 767px) {
+  .form {
+    padding: 1.2rem 1.6rem;
+  }
+  .input {
+    padding-left: 0.8rem;
+    font-size: 1.4rem;
+  }
+}
