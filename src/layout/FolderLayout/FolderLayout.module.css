@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 112.4rem;
+  padding: 4rem 3.2rem 10rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .content {
+    gap: 3.2rem;
+    padding: 2rem 3.2rem 6rem;
+  }
+}
