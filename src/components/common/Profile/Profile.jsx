@@ -1,6 +1,6 @@
 import styles from "./Profile.module.css";
 import classNames from "classnames/bind";
-import useGetData from "../../../api/useGetData";
+import useGetData from "../../../util/useGetData";
 
 const cx = classNames.bind(styles);
 

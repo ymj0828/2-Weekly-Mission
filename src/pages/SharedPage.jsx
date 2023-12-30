@@ -1,4 +1,4 @@
-import useGetData from "../api/useGetData";
+import useGetData from "../util/useGetData";
 import BaseLayout from "../layout/BaseLayout/BaseLayout";
 import SharedLayout from "../layout/SharedLayout/SharedLayout";
 import FolderInformation from "../components/FolderInformation/FolderInformation";

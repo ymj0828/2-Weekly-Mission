@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useGetData from "../api/useGetData";
+import useGetData from "../util/useGetData";
 import BaseLayout from "../layout/BaseLayout/BaseLayout";
 import FolderLayout from "../layout/FolderLayout/FolderLayout";
 import AddLinkForm from "../components/AddLinkForm/AddLinkForm";
