@@ -1,0 +1,38 @@
+.container {
+  background: var(--main-background-color);
+}
+.container.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+.header-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 192rem;
+  height: 9.4rem;
+  padding: 0 20rem;
+  margin: 0 auto;
+}
+.logo-image {
+  width: 13.3rem;
+}
+
+@media (max-width: 1199px) {
+  .header-wrap {
+    max-width: 80rem;
+    padding: 0 3.2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-wrap {
+    height: 6.3rem;
+  }
+  .logo-image {
+    width: auto;
+    height: 1.6rem;
+  }
+}

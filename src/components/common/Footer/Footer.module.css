@@ -1,0 +1,43 @@
+.container {
+  background-color: var(--black-background-color);
+}
+.footer-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 192rem;
+  height: 16rem;
+  padding: 3.2rem 10.4rem 0;
+  margin: 0 auto;
+}
+.corplogo-wrap {
+  font-size: 1.6rem;
+  color: #676767;
+}
+.policy-faq-wrap {
+  display: flex;
+  gap: 3rem;
+  font-size: 1.8rem;
+}
+.policy-faq-wrap > a {
+  color: #cfcfcf;
+}
+.sns-wrap {
+  display: flex;
+  gap: 1.2rem;
+}
+
+@media (max-width: 767px) {
+  .footer-wrap {
+    flex-wrap: wrap;
+    padding: 3.2rem;
+  }
+  .corplogo-wrap {
+    align-self: end;
+    position: absolute;
+  }
+  .policy-faq-wrap {
+    font-size: 1.6rem;
+  }
+}

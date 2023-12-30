@@ -1,0 +1,14 @@
+@import "./reset.css";
+
+:root {
+  --main-color: #6d6afe;
+  --alert-color: #ff5b56;
+  --main-background-color: #f0f6ff;
+  --black-background-color: #111322;
+  --white-background-color: #fff;
+  --gray-darker-color: #373740;
+  --gray-dark-color: #9fa6b2;
+  --gray-medium-color: #ccd5e3;
+  --gray-light-color: #f5f5f5;
+  --gray-lighter-color: #e7effb;
+}
