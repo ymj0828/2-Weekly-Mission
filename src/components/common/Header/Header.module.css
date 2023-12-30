@@ -17,7 +17,7 @@
   margin: 0 auto;
 }
 .logo-image {
-  width: 133px;
+  width: 13.3rem;
 }
 
 @media (max-width: 1199px) {
@@ -33,6 +33,6 @@
   }
   .logo-image {
     width: auto;
-    height: 16px;
+    height: 1.6rem;
   }
 }
