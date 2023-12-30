@@ -1,0 +1,52 @@
+.share-text {
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  color: var(--gray-dark-color);
+  text-align: center;
+}
+.list {
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 17.2rem;
+  padding: 0.8rem;
+  margin: 2rem 0;
+  border-radius: 0.8rem;
+  overflow-y: auto;
+}
+.item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  height: 4rem;
+  padding: 0.8rem;
+  cursor: pointer;
+}
+.item:hover {
+  background-color: var(--main-background-color);
+}
+.item.selected {
+  background-color: var(--main-background-color);
+}
+.folder-name {
+  font-size: 1.6rem;
+  color: var(--gray-darker-color);
+}
+.folder-count {
+  font-size: 1.4rem;
+  color: var(--gray-dark-color);
+}
+.icon {
+  margin-left: auto;
+}
+.button {
+  width: 100%;
+  padding: 1.6rem 0;
+  border-radius: 0.8rem;
+  background: linear-gradient(91deg, var(--main-color) 0.12%, #6ae3fe 101.84%);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--gray-light-color);
+}
