@@ -32,7 +32,7 @@ const Card = ({
   };
 
   const handleClickOutside = (e) => {
-    if (!moreButton.current.contains(e.target)) {
+    if (moreButton.current && !moreButton.current.contains(e.target)) {
       setIsPopOver(false);
     }
   };
