@@ -7,18 +7,27 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import FolderToolBar from "../components/FolderToolBar/FolderToolBar";
 import CardList from "../components/common/CardList/CardList";
 import NoLink from "../components/NoLink/NoLink";
+import { useSearchLink } from "../util/useSearchLink";
 
 const FolderPage = () => {
   const { data: folders } = useGetData("users/1/folders") || {};
   const [selectedFolderId, setSelectedFolderId] = useState("");
   const { data: folderDatas } =
     useGetData(`users/1/links?folderId=${selectedFolderId}`) || {};
+  const { searchValue, handleChange, handleCloseClick, result } =
+    useSearchLink(folderDatas);
 
   return (
     <BaseLayout isSticky={false}>
       <FolderLayout
         addLinkForm={<AddLinkForm />}
-        searchBar={<SearchBar />}
+        searchBar={
+          <SearchBar
+            value={searchValue}
+            onChange={handleChange}
+            onCloseClick={handleCloseClick}
+          />
+        }
         folderToolBar={
           <FolderToolBar
             foldersData={folders}
@@ -28,7 +37,7 @@ const FolderPage = () => {
         }
         cardList={
           folderDatas && folderDatas.length > 0 ? (
-            <CardList linksData={folderDatas} folder={true} />
+            <CardList linksData={result} folder={true} />
           ) : (
             <NoLink />
           )
