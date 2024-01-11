@@ -1,0 +1,17 @@
+.share-text {
+  margin: 0.8rem 0 2.4rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  color: var(--gray-dark-color);
+  text-align: center;
+}
+.button-wrap {
+  display: flex;
+  gap: 3.2rem;
+  justify-content: center;
+}
+.button-text {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
