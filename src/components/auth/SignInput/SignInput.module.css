@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  gap: 1.2rem;
+  flex-direction: column;
+  position: relative;
+}
+.label {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+.input-wrap {
+  position: relative;
+}
+.input {
+  width: 100%;
+  padding: 1.8rem 4rem 1.8rem 1.5rem;
+  border: 1px solid var(--gray-medium-color);
+  border-radius: 0.8rem;
+  outline: none;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: var(--gray-darker-color);
+}
+.input:focus {
+  border: 1px solid var(--main-color);
+}
+.input.alert {
+  border: 1px solid var(--alert-color);
+}
+.button {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.message {
+  position: absolute;
+  bottom: -0.6rem;
+  font-size: 1.4rem;
+  color: var(--alert-color);
+  transform: translateY(100%);
+}
