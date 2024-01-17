@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.2rem 2.4rem;
+  border: 1px solid var(--gray-medium-color);
+  border-radius: 0.8rem;
+  background-color: var(--gray-lighter-color);
+  font-size: 1.4rem;
+  color: var(--gray-darker-color);
+}
+.images-wrap {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+}

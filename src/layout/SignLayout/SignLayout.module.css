@@ -1,0 +1,19 @@
+.background {
+  background-color: var(--main-background-color);
+}
+.container {
+  display: flex;
+  gap: 3.2rem;
+  align-items: center;
+  flex-direction: column;
+  width: 40rem;
+  padding: 23.8rem 0 25.2rem;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  gap: 2.4rem;
+  flex-direction: column;
+  width: 100%;
+}

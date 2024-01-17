@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  flex-direction: column;
+}
+.logo {
+  height: 3.8rem;
+}
+.text {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+.link {
+  border-bottom: 1px solid var(--main-color);
+  font-weight: 600;
+  color: var(--main-color);
+}
