@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   TEST_USER,
-  Input_Error_Message,
+  INPUT_ERROR_MESSAGE,
   setInputAlert,
   removeInputAlert,
   isEmailValid,
   isPasswordValid,
 } from "@/util/getAuth";
-import { usePostAuth } from "@/util/usePostAuth";
+import { postSignRequest } from "@/util/postSignRequest";
 import SignLayout from "@/layout/SignLayout/SignLayout";
 import SignHeader from "@/components/auth/SignHeader/SignHeader";
 import SignInput from "@/components/auth/SignInput/SignInput";
 import SignButton from "@/components/auth/SignButton/SignButton";
 import SocialAuth from "@/components/auth/SocialAuth/SocialAuth";
 
-const SharedPage = () => {
+const SignupPage = () => {
   const router = useRouter();
   const [inputValueParent, setInputValueParent] = useState({
     email: "",
@@ -23,72 +23,86 @@ const SharedPage = () => {
     passwordCheck: "",
   });
 
-  function emailInputFocusOut(inputValue, setIsAlert, setErrorMessage) {
+  const handleEmailInputFocusOut = (
+    inputValue,
+    setIsAlert,
+    setErrorMessage
+  ) => {
     if (inputValue === "") {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.emailNull,
+        message: INPUT_ERROR_MESSAGE.emailNull,
       });
       return false;
     }
     if (!isEmailValid(inputValue)) {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.emailInvalid,
+        message: INPUT_ERROR_MESSAGE.emailInvalid,
       });
       return false;
     }
     if (inputValue === TEST_USER.email) {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.emailExisting,
+        message: INPUT_ERROR_MESSAGE.emailExisting,
       });
       return false;
     }
     removeInputAlert(setIsAlert, setErrorMessage);
     return true;
-  }
+  };
 
-  function passwordInputFocusOut(inputValue, setIsAlert, setErrorMessage) {
+  const handlePasswordInputFocusOut = (
+    inputValue,
+    setIsAlert,
+    setErrorMessage
+  ) => {
     if (inputValue === "" || !isPasswordValid(inputValue)) {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.passwordInvalid,
+        message: INPUT_ERROR_MESSAGE.passwordInvalid,
       });
       return false;
     }
     removeInputAlert(setIsAlert, setErrorMessage);
     return true;
-  }
+  };
 
-  function passwordCheckInputFocusOut(inputValue, setIsAlert, setErrorMessage) {
+  const handlePasswordCheckInputFocusOut = (
+    inputValue,
+    setIsAlert,
+    setErrorMessage
+  ) => {
     if (inputValue === "" || !isPasswordValid(inputValue)) {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.passwordInvalid,
+        message: INPUT_ERROR_MESSAGE.passwordInvalid,
       });
       return false;
     }
     if (inputValueParent.password !== inputValue) {
       setInputAlert(setIsAlert, {
         setErrorMessage,
-        message: Input_Error_Message.passwordNotMatch,
+        message: INPUT_ERROR_MESSAGE.passwordNotMatch,
       });
       return false;
     }
     removeInputAlert(setIsAlert, setErrorMessage);
     return true;
-  }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const isEmailInputValid = emailInputFocusOut(inputValueParent.email);
-      const isPasswordInputValid = passwordInputFocusOut(
+      const isEmailInputValid = handleEmailInputFocusOut(
+        inputValueParent.email
+      );
+      const isPasswordInputValid = handlePasswordInputFocusOut(
         inputValueParent.password
       );
-      const isConfirmPasswordInputValid = passwordCheckInputFocusOut(
+      const isConfirmPasswordInputValid = handlePasswordCheckInputFocusOut(
         inputValueParent.passwordCheck
       );
 
@@ -97,7 +111,7 @@ const SharedPage = () => {
         isPasswordInputValid &&
         isConfirmPasswordInputValid
       ) {
-        const response = await usePostAuth("sign-up", {
+        const response = await postSignRequest("sign-up", {
           email: inputValueParent.email,
           password: inputValueParent.password,
         });
@@ -132,7 +146,7 @@ const SharedPage = () => {
           label={"이메일"}
           type={"email"}
           placeholder={"이메일을 입력해 주세요"}
-          onFocusOut={emailInputFocusOut}
+          onFocusOut={handleEmailInputFocusOut}
           setInputValueParent={setInputValueParent}
         />,
         <SignInput
@@ -140,7 +154,7 @@ const SharedPage = () => {
           label={"비밀번호"}
           type={"password"}
           placeholder={"영문, 숫자를 조합해 8자 이상 입력해 주세요"}
-          onFocusOut={passwordInputFocusOut}
+          onFocusOut={handlePasswordInputFocusOut}
           setInputValueParent={setInputValueParent}
         />,
         <SignInput
@@ -148,7 +162,7 @@ const SharedPage = () => {
           label={"비밀번호 확인"}
           type={"password"}
           placeholder={"비밀번호와 일치하는 값을 입력해 주세요"}
-          onFocusOut={passwordCheckInputFocusOut}
+          onFocusOut={handlePasswordCheckInputFocusOut}
           setInputValueParent={setInputValueParent}
         />,
       ]}
@@ -158,4 +172,4 @@ const SharedPage = () => {
   );
 };
 
-export default SharedPage;
+export default SignupPage;

@@ -6,7 +6,7 @@ export const TEST_USER = {
   password: "codeit101",
 };
 
-export const Input_Error_Message = {
+export const INPUT_ERROR_MESSAGE = {
   emailNull: "이메일을 입력해주세요.",
   emailInvalid: "올바른 이메일 주소가 아닙니다.",
   emailExisting: "이미 사용 중인 이메일입니다.",
